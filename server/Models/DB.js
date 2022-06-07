@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise');
 
-class DBservice {
+class DBModel {
     async init () {
         try {
             this.connection = await mysql.createConnection({
@@ -21,4 +21,4 @@ class DBservice {
     }
 }
 
-module.exports = new DBservice();
+module.exports = new DBModel();
