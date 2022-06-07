@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "VAS",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
