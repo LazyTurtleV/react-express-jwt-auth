@@ -5,7 +5,7 @@ CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     user_password VARCHAR(255) NOT NULL,
-    is_activated BOOLEAN,
+    is_activated INT,
     activation_link VARCHAR(255),
     PRIMARY KEY (id)
 );
@@ -23,6 +23,19 @@ CREATE PROCEDURE spiCreateUser(
 )
 BEGIN 
     INSERT INTO Users (email, user_password) VALUES (_user_email, _user_password);
+END//
+
+CREATE PROCEDURE spiValidateEmail(
+    IN _user_email VARCHAR(255),
+    OUT _exist INT
+)
+BEGIN
+    SELECT
+        CASE 
+        WHEN EXISTS (SELECT * FROM Auth.users WHERE email = _user_email) THEN 1 
+        ELSE 0 
+    END
+    INTO _exist;
 END//
 
 DELIMITER ;
