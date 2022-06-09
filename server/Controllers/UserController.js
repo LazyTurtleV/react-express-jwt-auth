@@ -36,7 +36,7 @@ class UserController {
     }
     async getUserData(req, res, next) {
         try {
-            
+            res.json([1, 25])
         } catch (e) {
 
         }
