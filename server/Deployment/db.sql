@@ -32,8 +32,8 @@ CREATE PROCEDURE spiValidateEmail(
 BEGIN
     SELECT
         CASE 
-        WHEN EXISTS (SELECT * FROM Auth.users WHERE email = _user_email) THEN 1 
-        ELSE 0 
+        WHEN EXISTS (SELECT * FROM Auth.users WHERE email = _user_email) THEN 0 
+        ELSE 1 
     END
     INTO _exist;
 END//
