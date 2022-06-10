@@ -19,10 +19,11 @@ CREATE TABLE tokens (
 DELIMITER //
 CREATE PROCEDURE spiCreateUser(
     IN _user_email VARCHAR(255),
-    IN _user_password VARCHAR(255)
+    IN _user_password VARCHAR(255),
+    IN _activation_link VARCHAR(255)
 )
 BEGIN 
-    INSERT INTO Users (email, user_password) VALUES (_user_email, _user_password);
+    INSERT INTO Users (email, user_password, activation_link) VALUES (_user_email, _user_password, _activation_link);
 END//
 
 CREATE PROCEDURE spiValidateEmail(
