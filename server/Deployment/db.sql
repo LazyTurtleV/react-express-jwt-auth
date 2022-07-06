@@ -23,7 +23,8 @@ CREATE PROCEDURE spiCreateUser(
     IN _activation_link VARCHAR(255)
 )
 BEGIN 
-    INSERT INTO Users (email, user_password, activation_link) VALUES (_user_email, _user_password, _activation_link);
+    INSERT INTO Auth.users (email, user_password, activation_link) VALUES (_user_email, _user_password, _activation_link);
+    SELECT id from Auth.users WHERE email = _user_email;
 END//
 
 CREATE PROCEDURE spiUpdateUserToken(
