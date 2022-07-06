@@ -31,6 +31,13 @@ class DBModel {
         return !!r[0][0][rowName];
     }
 
+    async updateUserRefreshToken(userId, refreshToken) {
+        if (!this.connection) await this.init();
+
+        const query = `call spiUpdateUserToken(?, ?)`;
+        await this.connection.query(query, [userId, refreshToken]);
+    }
+
     async createUser(email, password, activationLink) {
         if (!this.connection) await this.init();
 
