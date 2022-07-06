@@ -36,21 +36,18 @@ BEGIN
 END//
 
 CREATE PROCEDURE spiValidateEmail(
-    IN _user_email VARCHAR(255),
-    OUT _exist INT
+    IN _user_email VARCHAR(255)
 )
 BEGIN
     SELECT
         CASE 
         WHEN EXISTS (SELECT * FROM Auth.users WHERE email = _user_email) THEN 0 
         ELSE 1 
-    END
-    INTO _exist;
+    END;
 END//
 
 CREATE PROCEDURE spiTokenExist(
-    IN _user_id VARCHAR(255),
-    OUT _exist INT
+    IN _user_id VARCHAR(255)
 )
 BEGIN
     SELECT 
