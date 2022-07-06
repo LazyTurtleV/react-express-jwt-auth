@@ -4,6 +4,14 @@ const mysql = require('mysql2/promise');
 class DBModel {
     static number = 0;
 
+    getFieldValue(mysqlResponse) {
+        const [r, f] = mysqlResponse;
+
+        //some weird response structure determines this magic code
+        const rowName = f[0][0].name;
+        return r[0][0][rowName];
+    }
+
     async init () {
         try {
             this.connection = await mysql.createConnection({
@@ -23,11 +31,9 @@ class DBModel {
         if (!this.connection) await this.init();
 
         const query = `call spiValidateEmail(?)`;
-        const [ r, f ] = await this.connection.query(query, [email]);
+        const res = await this.connection.query(query, [email]);
 
-        //some weird response structure determines this magic code
-        const rowName = f[0][0].name;
-        return !!r[0][0][rowName];
+        return !!this.getFieldValue(res);
     }
 
     async updateUserRefreshToken(userId, refreshToken) {
@@ -41,7 +47,9 @@ class DBModel {
         if (!this.connection) await this.init();
 
         const query = 'call spiCreateUser(?, ?, ?)';
-        await this.connection.query(query, [email, password, activationLink]);
+        const res = await this.connection.query(query, [email, password, activationLink]);
+        
+        return this.getFieldValue(res);
     }
 
     async closeConnection () {
