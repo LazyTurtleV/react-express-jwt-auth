@@ -26,13 +26,16 @@ BEGIN
     INSERT INTO Users (email, user_password, activation_link) VALUES (_user_email, _user_password, _activation_link);
 END//
 
-CREATE PROCEDURE spiUpdateUserRefreshToken(
-    IN _user_email VARCHAR(255),
-    IN _user_password VARCHAR(255),
-    IN _activation_link VARCHAR(255)
+CREATE PROCEDURE spiUpdateUserToken(
+    IN _user_id VARCHAR(255),
+    IN _refresh_token VARCHAR(255)
 )
 BEGIN 
-    INSERT INTO Users (email, user_password, activation_link) VALUES (_user_email, _user_password, _activation_link);
+    IF EXISTS (SELECT * from Auth.tokens WHERE user_id = _user_id) THEN
+        UPDATE Auth.tokens SET refresh_token = _refresh_token WHERE user_id = _user_id;
+    ELSE
+        INSERT INTO Auth.tokens (user_id, refresh_token) VALUES (_user_id, _refresh_token);
+    END IF;
 END//
 
 CREATE PROCEDURE spiValidateEmail(
