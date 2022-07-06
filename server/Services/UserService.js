@@ -14,7 +14,6 @@ class UserService {
         const hashedPassword = await bcrypt.hash(password, 3);
         const activationLink = uuid.v4();
         const userId = await dbModel.createUser(email, hashedPassword, activationLink);
-        console.log('user id', userId);
         
         await mailService.sendActivationMail(email, activationLink);
         const tokens = tokenService.generateToken({ email })
