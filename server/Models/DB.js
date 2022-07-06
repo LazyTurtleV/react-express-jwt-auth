@@ -31,11 +31,11 @@ class DBModel {
         return !!r[0][0][rowName];
     }
 
-    async createUser(email, password) {
+    async createUser(email, password, activationLink) {
         if (!this.connection) await this.init();
 
-        const query = 'call spiCreateUser(?, ?)';
-        await this.connection.query(query, [email, password]);
+        const query = 'call spiCreateUser(?, ?, ?)';
+        await this.connection.query(query, [email, password, activationLink]);
     }
 
     async closeConnection () {
