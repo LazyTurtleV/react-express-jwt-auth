@@ -1,9 +1,16 @@
+const UserService = require("../Services/UserService");
+const { convertDaysToMs } = require("../Utils/time");
+
 class UserController {
     async register(req, res, next) {
         try {
+            const { email, password } = req.body;
+            const userData = await UserService.register(email, password);
 
+            res.cookie('refToken', userData.refreshToken, { httpOnly: true, maxAge: convertDaysToMs(30) });
+            return res.json(userData);
         } catch (e) {
-            
+            console.log('ERR WHILE REGISTERING USER', e);
         }
     }
     async login(req, res, next) {
