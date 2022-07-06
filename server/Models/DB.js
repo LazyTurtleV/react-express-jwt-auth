@@ -1,6 +1,9 @@
 const mysql = require('mysql2/promise');
 
+
 class DBModel {
+    static number = 0;
+
     async init () {
         try {
             this.connection = await mysql.createConnection({
@@ -13,10 +16,6 @@ class DBModel {
         } catch (e) {
             console.error('Error connecting to MySQL', e);
         }
-    }
-
-    constructor(){
-        this.init();
     }
 
     //determines if the email  exists on DB
