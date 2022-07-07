@@ -10,6 +10,6 @@ module.exports = class HttpError extends Error {
     }
 
     static badRequest(message, errors = []) {
-        return new HttpError(400, message. errors);
+        return new HttpError(400, message, errors);
     }
 }
