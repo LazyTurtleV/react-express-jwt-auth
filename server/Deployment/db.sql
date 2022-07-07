@@ -39,6 +39,15 @@ BEGIN
     END IF;
 END//
 
+CREATE PROCEDURE spiActivateUser(
+    IN _activation_link VARCHAR(255)
+)
+BEGIN 
+    SET SQL_SAFE_UPDATES = 0;
+    UPDATE Auth.users SET is_activated = 1 WHERE activation_link = _activation_link;
+    SET SQL_SAFE_UPDATES = 1;
+END//
+
 CREATE PROCEDURE spiValidateEmail(
     IN _user_email VARCHAR(255)
 )
