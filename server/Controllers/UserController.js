@@ -10,21 +10,21 @@ class UserController {
             res.cookie('refToken', userData.refreshToken, { httpOnly: true, maxAge: convertDaysToMs(30) });
             return res.json(userData);
         } catch (e) {
-            console.log('ERR WHILE REGISTERING USER', e);
+            next(e);
         }
     }
     async login(req, res, next) {
         try {
 
         } catch (e) {
-
+            next(e);
         }
     }
     async logout(req, res, next) {
         try {
 
         } catch (e) {
-
+            next(e);
         }
     }
     async activate(req, res, next) {
@@ -34,21 +34,21 @@ class UserController {
 
             return res.redirect(process.env.CLIENT_URL);
         } catch (e) {
-            console.log('ERR WHILE ACTIVATING USER', e);
+            next(e);
         }
     }
     async refresh(req, res, next) {
         try {
 
         } catch (e) {
-
+            next(e);
         }
     }
     async getUserData(req, res, next) {
         try {
             res.json([1, 25])
         } catch (e) {
-
+            next(e);
         }
     }
 }
