@@ -4,11 +4,14 @@ const uuid = require('uuid');
 const dbModel = require('../Models/DB');
 const mailService = require('./MailService');
 const tokenService = require('./TockenService');
+
+const HttpError = require('../Exceptions/http-error');
+
 class UserService {
     async register(email, password) {
         const absent = await dbModel.validateEmail(email);
         if (!absent) {
-            throw new Error('The email already exists');
+            throw HttpError.badRequest('The email already exists');
         }
 
         const hashedPassword = await bcrypt.hash(password, 3);
