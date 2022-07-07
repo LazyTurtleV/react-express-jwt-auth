@@ -27,6 +27,10 @@ class UserService {
             }
         }
     }
+
+    async activate(activationLink) {
+        await dbModel.activateUser(activationLink);
+    }
 }
 
 module.exports = new UserService();

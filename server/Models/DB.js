@@ -56,6 +56,11 @@ class DBModel {
         await this.connection.end();
         this.connection = undefined;
     }
+
+    async activateUser(activationLink) {
+        const query = 'call spiActivateUser(?)';
+        const res = await this.connection.query(query, [activationLink]);
+    }
 }
 
 module.exports = new DBModel();
