@@ -46,6 +46,13 @@ BEGIN
     END IF;
 END//
 
+CREATE PROCEDURE spiRemoveToken(
+    IN _refresh_token VARCHAR(255)
+)
+BEGIN 
+    DELETE FROM Auth.tokens WHERE refresh_token = _refresh_token;
+END//
+
 CREATE PROCEDURE spiActivateUser(
     IN _activation_link VARCHAR(255)
 )
