@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator');
 
 const UserService = require("../Services/UserService");
 const { convertDaysToMs } = require("../Utils/time");
-const HttpError = require('../exceptions/http-error');
+const { error: HttpError } = require('../exceptions/http-error');
 
 class UserController {
     async register(req, res, next) {

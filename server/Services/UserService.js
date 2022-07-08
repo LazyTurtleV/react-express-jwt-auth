@@ -5,7 +5,7 @@ const dbModel = require('../Models/DB');
 const mailService = require('./MailService');
 const tokenService = require('./TockenService');
 
-const HttpError = require('../Exceptions/http-error');
+const { error: HttpError } = require('../Exceptions/http-error');
 
 class UserService {
     async register(email, password) {
