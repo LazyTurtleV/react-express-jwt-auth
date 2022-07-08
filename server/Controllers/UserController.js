@@ -1,9 +1,18 @@
+const { validationResult } = require('express-validator');
+
 const UserService = require("../Services/UserService");
 const { convertDaysToMs } = require("../Utils/time");
+const HttpError = require('../exceptions/http-error');
 
 class UserController {
     async register(req, res, next) {
         try {
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                throw HttpError.badRequest("Validation error", errors.array());
+            }
+
             const { email, password } = req.body;
             const userData = await UserService.register(email, password);
 
