@@ -18,6 +18,10 @@ class TockenService {
             console.log('SOME ERR OCCURED WHILE UPDATING TOKEN', e);
         }
     }
+
+    async deleteToken(token) {
+        return DB.removeRefreshToken(token);
+    }
 }
 
 module.exports = new TockenService();

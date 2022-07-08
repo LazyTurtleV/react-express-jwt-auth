@@ -50,6 +50,11 @@ class DBModel {
         await this.connection.query(query, [userId, refreshToken]);
     }
 
+    async removeRefreshToken(token) {
+        const query = `call spiRemoveToken(?)`;
+        await this.connection.query(query, [token]);
+    }
+
     async createUser(email, password, activationLink) {
         if (!this.connection) await this.init();
 
