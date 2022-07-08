@@ -1,4 +1,6 @@
 module.exports = class HttpError extends Error {
+    type = 'httpError';
+
     constructor(status, message, errors = []) {
         super(message);
         this.status = status;

@@ -2,7 +2,9 @@ const HttpError = require('../Exceptions/http-error');
 
 module.exports = function (err, req, res, next) {
     console.log(err);
-    if (err instanceof HttpError) {
+    //temprorary solution until I get with a insteadof bug
+    //if (err instanceof HttpError) {
+    if (err.type === 'httpError') {
         return res.status(err.status).json({ message: err.message, errors: err.errors });
     }
 
