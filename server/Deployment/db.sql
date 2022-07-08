@@ -27,6 +27,13 @@ BEGIN
     SELECT id from Auth.users WHERE email = _user_email;
 END//
 
+CREATE PROCEDURE spiGetUser(
+    IN _user_email VARCHAR(255)
+)
+BEGIN 
+    SELECT id, email, user_password from Auth.users WHERE email = _user_email;
+END//
+
 CREATE PROCEDURE spiUpdateUserToken(
     IN _user_id VARCHAR(255),
     IN _refresh_token VARCHAR(255)
