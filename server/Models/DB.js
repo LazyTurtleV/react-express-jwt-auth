@@ -36,6 +36,13 @@ class DBModel {
         return !!this.getFieldValue(res);
     }
 
+    async getUser(email) {
+        const query = `call spiGetUser(?)`;
+        const res = await this.connection.query(query, [email]);
+
+        return res[0][0][0];
+    }
+
     async updateUserRefreshToken(userId, refreshToken) {
         if (!this.connection) await this.init();
 

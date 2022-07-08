@@ -31,6 +31,30 @@ class UserService {
         }
     }
 
+    async login(email, password) {
+        const user = await dbModel.getUser(email);
+        console.log('AAAAAA', { user })
+        if (!user) {
+            throw HttpError.badRequest('The user does not exist');
+        } 
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.user_password);
+        if (!isPasswordCorrect) {
+            throw HttpError.badRequest('Incorrect password');
+        }
+
+        const tokens = tokenService.generateToken({ email })
+        
+        tokenService.updateRefreshToken(user.id, tokens.refreshToken);
+
+        return {
+            ...tokens,
+            user: {
+                userId: user.id
+            }
+        }
+    }
+
     async activate(activationLink) {
         await dbModel.activateUser(activationLink);
     }
