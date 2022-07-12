@@ -33,7 +33,6 @@ class UserService {
 
     async login(email, password) {
         const user = await dbModel.getUser(email);
-        console.log('AAAAAA', { user })
         if (!user) {
             throw HttpError.badRequest('The user does not exist');
         } 
