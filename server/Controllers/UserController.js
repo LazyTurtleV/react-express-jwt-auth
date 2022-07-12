@@ -40,7 +40,7 @@ class UserController {
 
             res.clearCookie('refToken');
 
-            return res.status(200);
+            return res.status(200).json({});
         } catch (e) {
             next(e);
         }
