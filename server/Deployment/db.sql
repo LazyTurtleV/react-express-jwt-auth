@@ -49,8 +49,10 @@ END//
 CREATE PROCEDURE spiRemoveToken(
     IN _refresh_token VARCHAR(255)
 )
-BEGIN 
+BEGIN
+    SET SQL_SAFE_UPDATES = 0;
     DELETE FROM Auth.tokens WHERE refresh_token = _refresh_token;
+    SET SQL_SAFE_UPDATES = 1;
 END//
 
 CREATE PROCEDURE spiActivateUser(
