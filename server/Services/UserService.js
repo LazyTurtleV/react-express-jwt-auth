@@ -54,6 +54,10 @@ class UserService {
         }
     }
 
+    async logout(token) {
+        return dbModel.removeRefreshToken(token);
+    }
+
     async activate(activationLink) {
         await dbModel.activateUser(activationLink);
     }
