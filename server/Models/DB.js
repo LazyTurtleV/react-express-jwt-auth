@@ -64,6 +64,13 @@ class DBModel {
         return this.getFieldValue(res);
     }
 
+    async tokenExists(token) {
+        const query = 'call spiTokenExist(?)'
+        const res = await this.connection.query(query, [token]);
+        
+        return this.getFieldValue(res);
+    }
+
     async closeConnection () {
         await this.connection.end();
         this.connection = undefined;

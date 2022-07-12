@@ -11,6 +11,18 @@ class TockenService {
         }
     }
 
+    validateToken(token) {
+        try {
+            return jwt.verify(token, process.env.SECRET_KEY);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async tokenExists(token) {
+        return DB.tokenExists(token);
+    }
+
     async updateRefreshToken(userId, refreshToken) {
         try {
             await DB.updateUserRefreshToken(userId, refreshToken);

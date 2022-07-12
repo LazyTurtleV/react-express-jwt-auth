@@ -6,6 +6,7 @@ const mailService = require('./MailService');
 const tokenService = require('./TockenService');
 
 const { error: HttpError } = require('../Exceptions/http-error');
+const TockenService = require('./TockenService');
 
 class UserService {
     async register(email, password) {
@@ -56,6 +57,30 @@ class UserService {
 
     async logout(token) {
         return dbModel.removeRefreshToken(token);
+    }
+
+    async refresh(token) {
+        if (!token) {
+            throw HttpError.unauthorized();
+        }
+
+        const userData = TockenService.validateToken(token);
+        const tokenExists = TockenService.tokenExists(token);
+        if (!userData || !tokenExists) {
+            throw HttpError.unauthorized();
+        }
+
+        const { id: userId } = await dbModel.getUser(userData.email);
+
+        const tokens = tokenService.generateToken({ email: userData.email })
+        tokenService.updateRefreshToken(userId, tokens.refreshToken);
+
+        return {
+            ...tokens,
+            user: {
+                userId
+            }
+        }
     }
 
     async activate(activationLink) {
