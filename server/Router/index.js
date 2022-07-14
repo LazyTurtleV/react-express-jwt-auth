@@ -2,7 +2,7 @@ const Router = require('express').Router;
 const router = new Router(); 
 const { body } = require('express-validator');
 
-
+const authMiddleware = require('../Middleware/auth');
 const userController = require('../Controllers/UserController');
 
 router.post(
@@ -15,7 +15,7 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
-router.get('/user-data', userController.getUserData);
+router.get('/user-data', authMiddleware, userController.getUserData);
 
 module.exports = router;
 
