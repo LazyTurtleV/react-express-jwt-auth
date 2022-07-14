@@ -21,7 +21,7 @@ class AuthService extends HttpService {
     async registration(email, password) {
         const { accessToken } = await fetch(`${this.apiBase}/registration`, {
             method: 'POST',
-            ...getDefaultFetchConfig(''),
+            ...getDefaultFetchConfig(),
             body: JSON.stringify({
                 email,
                 password,
@@ -33,7 +33,7 @@ class AuthService extends HttpService {
     async login(email, password) {
         const { accessToken } = await fetch(`${this.apiBase}/login`, {
             method: 'POST',
-            ...getDefaultFetchConfig(''),
+            ...getDefaultFetchConfig(),
             body: JSON.stringify({
                 email,
                 password,
@@ -45,15 +45,15 @@ class AuthService extends HttpService {
     async logout() {
         await fetch(`${this.apiBase}/logout`, {
             method: 'POST',
-            ...getDefaultFetchConfig(''),
+            ...getDefaultFetchConfig(),
             body: JSON.stringify({}),
         }).then(this.handleRequest);
     }
 
-    async refresh() {
+    async refresh(token) {
         const { accessToken } = await fetch(`${this.apiBase}/refresh`, {
             method: 'GET',
-            ...getDefaultFetchConfig(this.token),
+            ...getDefaultFetchConfig(token),
         }).then(this.handleRequest);
         this.saveAccessToken(accessToken);
     }

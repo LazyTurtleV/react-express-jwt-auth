@@ -1,7 +1,7 @@
 export const getDefaultFetchConfig = (accessToken) => ({
     headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
+        Authorization: accessToken && `Bearer ${accessToken}`
     },
     credentials: 'include',
 })
