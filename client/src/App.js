@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 
+import config from './config/config.json';
+import DataService from "./services/DataService";
+
 
 function App() {
-  useEffect(async () => {
-    const r = await fetch('http://localhost:5000/api/login', {
-      email: 'valerapupkin89s@gmail.com',
-      password: 'qwerty123'
-    }).then((r) => r.json());
-    console.log('RESPONSE GOTTEN', r);
+  useEffect(() => {
+    DataService.init(config);
   },[]);
 
   return (
