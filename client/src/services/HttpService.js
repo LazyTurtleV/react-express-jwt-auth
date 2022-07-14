@@ -11,7 +11,7 @@ class HttpService {
     errorHandlers = [];
 
     async handleRequest(r) {
-        if (r.status) {
+        if (r.status !== 200) {
             console.log('ERR CAUGHT', r.status, r.statusText);
 
             for (const handler of this.errorHandlers) {
