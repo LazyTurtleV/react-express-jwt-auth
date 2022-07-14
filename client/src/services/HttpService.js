@@ -27,6 +27,26 @@ class HttpService {
     subscribeOnError(callback) {
         this.errorHandlers.push(callback);
     }
+
+    subscribeOnUnauthorizedError(callback) {
+        const handler = async (r) => {
+            if (r.status === 401) {
+                await callback(r);
+            }
+        }
+
+        this.subscribeOnError(handler);
+    }
+
+    subscribeOnBadRequestError(callback) {
+        const handler = async (r) => {
+            if (r.status === 400) {
+                await callback(r);
+            }
+        }
+
+        this.subscribeOnError(handler);
+    }
 }
 
 export default HttpService;
