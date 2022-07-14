@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Router from "./components/router/Router";
 
 import config from './config/config.json';
 import AuthService from "./services/AuthService";
@@ -12,7 +13,7 @@ function App() {
   },[]);
 
   return (
-    <div />
+    <Router />
   );
 }
 
