@@ -1,11 +1,4 @@
-const getDefaultFetchConfig = (accessToken) => ({
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
-    },
-    credentials: 'include',
-})
-
+import { getDefaultFetchConfig } from '../utils/http';
 class DataService {
     constructor() {
         //otherwise this is undefined inside the function
