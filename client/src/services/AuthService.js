@@ -50,10 +50,10 @@ class AuthService extends HttpService {
         }).then(this.handleRequest);
     }
 
-    async refresh(token) {
+    async refresh() {
         const { accessToken } = await fetch(`${this.apiBase}/refresh`, {
             method: 'GET',
-            ...getDefaultFetchConfig(token),
+            ...getDefaultFetchConfig(this.token),
         }).then(this.handleRequest);
         this.saveAccessToken(accessToken);
     }
