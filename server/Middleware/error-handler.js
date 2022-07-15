@@ -1,10 +1,8 @@
-const { handler: httpErrorHandler } = require('../Exceptions/http-error');
+const { handler: httpErrorHandler, error: HttpError } = require('../Exceptions/http-error');
 
 module.exports = function (err, req, res, next) {
     console.log(err);
-    //temprorary solution until I get with a insteadof bug
-    //if (err instanceof HttpError) {
-    if (err.type === 'httpError') {
+    if (err instanceof HttpError) {
         return httpErrorHandler(req, res, err);
     }
 
