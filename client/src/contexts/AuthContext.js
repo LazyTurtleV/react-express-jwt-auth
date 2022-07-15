@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
     const ctx = {
         login: async (email, password) => {
-            const { accessToken, user } = await AuthService.login(email, password);
+            const { accessToken, user } = await AuthService.login(email, password) || {};
             setUser(user);
             setToken(accessToken);
         },
@@ -36,12 +36,12 @@ export const AuthProvider = ({ children }) => {
             await AuthService.logout();
         },
         refresh: async (email, password) => {
-            const { accessToken, user } = await AuthService.refresh();
+            const { accessToken, user } = await AuthService.refresh() || {};
             setUser(user);
             setToken(accessToken);
         },
         register: async (email, password) => { 
-            const { accessToken, user } = await AuthService.registration(email, password);
+            const { accessToken, user } = await AuthService.registration(email, password) || {};
             setUser(user);
             setToken(accessToken);
         },
